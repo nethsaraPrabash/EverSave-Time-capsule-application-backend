@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/time/user")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 
 public class AuthController {
 
@@ -55,11 +55,6 @@ public class AuthController {
         }
         return res;
     }
-
-
-
-
-
 
 
 }

@@ -30,9 +30,19 @@ public class CapsuleServiceIMPL implements CapsuleService {
     }
 
     @Override
-    public boolean updateCapsule(Capsule capsule){
-        CapsuleEntity capsuleEntity = modelMapper.map(capsule, CapsuleEntity.class);
-        return capsuleRepository.save(capsuleEntity) == capsuleEntity;
+    public boolean updateCapsule(Capsule capsule, int capsuleId){
+        if (capsuleRepository.existsById(capsuleId)) {
+            // Map the Capsule object to CapsuleEntity
+            CapsuleEntity capsuleEntity = modelMapper.map(capsule, CapsuleEntity.class);
+
+            // Set the capsuleId to ensure the existing record is updated
+            capsuleEntity.setId(capsuleId);
+
+            // Save the updated capsule entity
+            capsuleRepository.save(capsuleEntity);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -45,9 +55,9 @@ public class CapsuleServiceIMPL implements CapsuleService {
     }
 
     @Override
-    public List<Capsule> getAllCapsules(){
+    public List<Capsule> getAllCapsules(int userId){
         List<Capsule> capsules = new ArrayList<>();
-        for(CapsuleEntity capsuleEntity : capsuleRepository.findAll()){
+        for(CapsuleEntity capsuleEntity : capsuleRepository.findAllByUserId(userId)){
             capsules.add(modelMapper.map(capsuleEntity, Capsule.class));
         }
         return capsules;

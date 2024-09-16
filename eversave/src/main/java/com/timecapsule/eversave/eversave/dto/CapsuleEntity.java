@@ -23,6 +23,7 @@ public class CapsuleEntity {
     private String location;
     private String image;
     private String video;
+    private int userId;
 
 
 

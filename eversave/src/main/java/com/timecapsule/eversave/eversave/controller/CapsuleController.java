@@ -9,7 +9,7 @@ import com.timecapsule.eversave.eversave.dto.responsebody.ResponseBody;
 
 @RestController
 @RequestMapping("api/time/capsule")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class CapsuleController {
 
     private final CapsuleService capsuleService;
@@ -33,10 +33,10 @@ public class CapsuleController {
         return res;
     }
 
-    @PutMapping("/update/{capsuleId}")
-    public ResponseBody updateCapsule(@PathVariable int capsuleId, @Validated @RequestBody Capsule capsule){
+    @PutMapping("/update")
+    public ResponseBody updateCapsule(@RequestParam int capsuleId, @Validated @RequestBody Capsule capsule){
         ResponseBody res = new ResponseBody();
-        if(capsuleService.updateCapsule(capsule)){
+        if(capsuleService.updateCapsule(capsule,capsuleId)){
             res.addResponse("status","success");
             res.addResponse("message","Capsule updated successfully");
         }else{
@@ -46,8 +46,8 @@ public class CapsuleController {
         return res;
     }
 
-    @DeleteMapping("/delete/{capsuleId}")
-    public ResponseBody deleteCapsule(@PathVariable int capsuleId){
+    @DeleteMapping("/delete/")
+    public ResponseBody deleteCapsule(@RequestParam int capsuleId){
         ResponseBody res = new ResponseBody();
         if(capsuleService.deleteCapsule(capsuleId)){
             res.addResponse("status","success");
@@ -75,11 +75,11 @@ public class CapsuleController {
     }
 
     @GetMapping("/get/all")
-    public ResponseBody getAllCapsules(){
+    public ResponseBody getAllCapsules(@RequestParam int userId){
         ResponseBody res = new ResponseBody();
         res.addResponse("status","success");
         res.addResponse("message","Capsules retrieved successfully");
-        res.addCapsuleList("capsules",capsuleService.getAllCapsules());
+        res.addCapsuleList("capsules",capsuleService.getAllCapsules(userId));
         return res;
     }
 

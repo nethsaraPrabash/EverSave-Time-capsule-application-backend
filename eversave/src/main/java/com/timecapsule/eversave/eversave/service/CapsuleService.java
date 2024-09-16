@@ -11,11 +11,11 @@ public interface CapsuleService {
 
     public boolean createCapsule(Capsule capsule);
 
-    public boolean updateCapsule(Capsule capsule);
+    public boolean updateCapsule(Capsule capsule,int capsuleId);
 
     public boolean deleteCapsule(int capsuleId);
 
     public Capsule getCapsuleById(int capsuleId);
 
-    public List<Capsule> getAllCapsules();
+    public List<Capsule> getAllCapsules(int userId);
 }

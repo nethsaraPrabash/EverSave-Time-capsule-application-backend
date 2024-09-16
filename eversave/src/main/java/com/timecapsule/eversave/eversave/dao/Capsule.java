@@ -20,4 +20,6 @@ public class Capsule {
     private String location;
     private String image;
     private String video;
+    @NotBlank
+    private int userId;
 }
